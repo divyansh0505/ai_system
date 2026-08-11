@@ -1,0 +1,1126 @@
+{
+  "info": {
+    "_postman_id": "mutton-api-collection",
+    "name": "Mutton",
+    "description": "API collection for Mutton - Session Management & Analytics Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "refresh_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "dashboard_access_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "dashboard_refresh_token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "internal_secret",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "organization_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "session_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_email",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "organization_project_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "organization_flow_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "organization_slides_id",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            },
+            "description": "Check service health status"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Organization",
+          "item": [
+            {
+              "name": "Generate Tokens",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 200) {",
+                      "    const response = pm.response.json();",
+                      "    if (response.data && response.data.access_token) {",
+                      "        pm.collectionVariables.set('access_token', response.data.access_token);",
+                      "        pm.collectionVariables.set('refresh_token', response.data.refresh_token);",
+                      "        console.log('Tokens saved to collection variables');",
+                      "    }",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"organization_id\": \"{{organization_id}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/generate",
+                  "host": ["{{base_url}}"],
+                  "path": ["auth", "generate"]
+                },
+                "description": "Generate access and refresh tokens for an organization"
+              },
+              "response": []
+            },
+            {
+              "name": "Refresh Tokens",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 200) {",
+                      "    const response = pm.response.json();",
+                      "    if (response.data && response.data.access_token) {",
+                      "        pm.collectionVariables.set('access_token', response.data.access_token);",
+                      "        pm.collectionVariables.set('refresh_token', response.data.refresh_token);",
+                      "        console.log('Tokens refreshed and saved');",
+                      "    }",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/refresh",
+                  "host": ["{{base_url}}"],
+                  "path": ["auth", "refresh"]
+                },
+                "description": "Refresh organization tokens using refresh token"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Dashboard",
+          "item": [
+            {
+              "name": "Signup",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 201) {",
+                      "    const response = pm.response.json();",
+                      "    if (response.data && response.data.email) {",
+                      "        pm.collectionVariables.set('user_email', response.data.email);",
+                      "        console.log('User email saved');",
+                      "    }",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "internal-chicken-secret",
+                    "value": "{{internal_secret}}"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"securepassword123\",\n  \"organization_id\": \"{{organization_id}}\",\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/dashboard/signup",
+                  "host": ["{{base_url}}"],
+                  "path": ["auth", "dashboard", "signup"]
+                },
+                "description": "Create a new dashboard user (requires internal secret)"
+              },
+              "response": []
+            },
+            {
+              "name": "Login",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 200) {",
+                      "    const response = pm.response.json();",
+                      "    if (response.data && response.data.tokens) {",
+                      "        pm.collectionVariables.set('dashboard_access_token', response.data.tokens.access_token);",
+                      "        pm.collectionVariables.set('dashboard_refresh_token', response.data.tokens.refresh_token);",
+                      "        if (response.data.organization_id) {",
+                      "            pm.collectionVariables.set('organization_id', response.data.organization_id);",
+                      "        }",
+                      "        console.log('Dashboard tokens saved');",
+                      "    }",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"securepassword123\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/dashboard/login",
+                  "host": ["{{base_url}}"],
+                  "path": ["auth", "dashboard", "login"]
+                },
+                "description": "Login as dashboard user and get tokens"
+              },
+              "response": []
+            },
+            {
+              "name": "Refresh Token",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 200) {",
+                      "    const response = pm.response.json();",
+                      "    if (response.data && response.data.access_token) {",
+                      "        pm.collectionVariables.set('dashboard_access_token', response.data.access_token);",
+                      "        pm.collectionVariables.set('dashboard_refresh_token', response.data.refresh_token);",
+                      "        console.log('Dashboard tokens refreshed');",
+                      "    }",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"refresh_token\": \"{{dashboard_refresh_token}}\"\n}"
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth/dashboard/refresh",
+                  "host": ["{{base_url}}"],
+                  "path": ["auth", "dashboard", "refresh"]
+                },
+                "description": "Refresh dashboard tokens"
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Organization",
+      "item": [
+        {
+          "name": "Get Organization",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/organization",
+              "host": ["{{base_url}}"],
+              "path": ["organization"]
+            },
+            "description": "Get full organization details including config, pages, avatars, and voices"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Projects",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/organization/projects",
+              "host": ["{{base_url}}"],
+              "path": ["organization", "projects"]
+            },
+            "description": "Get all projects for the organization"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Avatars",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/organization/avatars",
+              "host": ["{{base_url}}"],
+              "path": ["organization", "avatars"]
+            },
+            "description": "Get all avatars available for the organization"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Custom Avatar",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "imageFile",
+                  "type": "file",
+                  "src": "",
+                  "description": "Required: Image file for the custom avatar"
+                },
+                {
+                  "key": "displayName",
+                  "value": "My Custom Avatar",
+                  "type": "text",
+                  "description": "Required: Display name for the avatar"
+                },
+                {
+                  "key": "imageUrl",
+                  "value": "",
+                  "type": "text",
+                  "description": "Optional: Image URL (alternative to imageFile)"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/organization/avatar",
+              "host": ["{{base_url}}"],
+              "path": ["organization", "avatar"]
+            },
+            "description": "Create a custom avatar for the organization. Provide either imageFile or imageUrl."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Voices",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/organization/voices",
+              "host": ["{{base_url}}"],
+              "path": ["organization", "voices"]
+            },
+            "description": "Get all voices available for the organization"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Custom Voice",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "audioFile",
+                  "type": "file",
+                  "src": "",
+                  "description": "Required: Audio file for the custom voice"
+                },
+                {
+                  "key": "name",
+                  "value": "My Custom Voice",
+                  "type": "text",
+                  "description": "Required: Name for the voice"
+                },
+                {
+                  "key": "description",
+                  "value": "",
+                  "type": "text",
+                  "description": "Optional: Description for the voice"
+                },
+                {
+                  "key": "language",
+                  "value": "en",
+                  "type": "text",
+                  "description": "Optional: Language code (e.g., en, es, fr)"
+                },
+                {
+                  "key": "baseVoiceId",
+                  "value": "",
+                  "type": "text",
+                  "description": "Optional: Base voice ID to clone from"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/organization/voice",
+              "host": ["{{base_url}}"],
+              "path": ["organization", "voice"]
+            },
+            "description": "Create a custom voice for the organization"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Organization Project",
+      "item": [
+        {
+          "name": "Create Flows Project",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.data) {",
+                  "        if (response.data.organization_project_id) {",
+                  "            pm.collectionVariables.set('organization_project_id', response.data.organization_project_id);",
+                  "            console.log('Organization Project ID saved: ' + response.data.organization_project_id);",
+                  "        }",
+                  "        if (response.data.organization_flow_id) {",
+                  "            pm.collectionVariables.set('organization_flow_id', response.data.organization_flow_id);",
+                  "            console.log('Organization Flow ID saved: ' + response.data.organization_flow_id);",
+                  "        }",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"My Flows Project\",\n  \"description\": \"Project description\",\n  \"instructions\": \"Agent instructions for this project\",\n  \"project_context\": \"Optional context for the project\",\n  \"pages\": [],\n  \"avatar_id\": null,\n  \"voice_id\": null,\n  \"thumbnail\": null\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/project?type=flows",
+              "host": ["{{base_url}}"],
+              "path": ["project"],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "flows"
+                }
+              ]
+            },
+            "description": "Create a new flows project. Requires dashboard authentication."
+          },
+          "response": []
+        },
+        {
+          "name": "Create Slides Project",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.data) {",
+                  "        if (response.data.organization_project_id) {",
+                  "            pm.collectionVariables.set('organization_project_id', response.data.organization_project_id);",
+                  "            console.log('Organization Project ID saved: ' + response.data.organization_project_id);",
+                  "        }",
+                  "        if (response.data.organization_slides_id) {",
+                  "            pm.collectionVariables.set('organization_slides_id', response.data.organization_slides_id);",
+                  "            console.log('Organization Slides ID saved: ' + response.data.organization_slides_id);",
+                  "        }",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "powerpointFile",
+                  "type": "file",
+                  "src": "",
+                  "description": "Required: PPTX file to convert to slides"
+                },
+                {
+                  "key": "knowledgeBaseFile",
+                  "type": "file",
+                  "src": "",
+                  "description": "Optional: PPT or PDF file for knowledge base content"
+                },
+                {
+                  "key": "title",
+                  "value": "My Presentation",
+                  "type": "text",
+                  "description": "Required: Title for the slides project"
+                },
+                {
+                  "key": "avatar_id",
+                  "value": "",
+                  "type": "text",
+                  "description": "Optional avatar ID"
+                },
+                {
+                  "key": "voice_id",
+                  "value": "",
+                  "type": "text",
+                  "description": "Optional voice ID"
+                },
+                {
+                  "key": "project_context",
+                  "value": "",
+                  "type": "text",
+                  "description": "Optional project context"
+                },
+                {
+                  "key": "thumbnail",
+                  "value": "",
+                  "type": "text",
+                  "description": "Optional thumbnail URL"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/project?type=slides",
+              "host": ["{{base_url}}"],
+              "path": ["project"],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "slides"
+                }
+              ]
+            },
+            "description": "Upload a PPTX file and create a slides project. Each slide is converted to an image and stored in S3. Optionally include a knowledge base file (PPT or PDF) that will be converted to text and stored with the slides."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Project",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/project/{{organization_project_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["project", "{{organization_project_id}}"]
+            },
+            "description": "Get a project by ID. Returns project details including populated organization_slides (for slides type) or organization_flows (for flows type), plus share details (link and allowed_users with ttl)."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Project (Slides)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Title\",\n  \"description\": \"Updated description\",\n  \"avatar_id\": null,\n  \"voice_id\": null,\n  \"project_context\": \"Updated context\",\n  \"thumbnail\": null,\n  \"is_active\": true,\n  \"is_publicly_visible\": false,\n  \"narrations\": [\n    { \"image_url\": \"https://s3.amazonaws.com/bucket/slide1.png\", \"narration\": \"Narration for slide 1\" },\n    { \"image_url\": \"https://s3.amazonaws.com/bucket/slide2.png\", \"narration\": \"Narration for slide 2\" }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/project/{{organization_project_id}}?type=slides",
+              "host": ["{{base_url}}"],
+              "path": ["project", "{{organization_project_id}}"],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "slides"
+                }
+              ]
+            },
+            "description": "Update a slides project. Can update title, description, avatar_id, voice_id, project_context, thumbnail, is_active, is_publicly_visible, and narrations. Narrations are mapped by image_url (unique and stable even if slide order changes). When narrations are provided, is_draft is automatically set to false."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Project (Flows)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated Title\",\n  \"description\": \"Updated description\",\n  \"avatar_id\": null,\n  \"voice_id\": null,\n  \"project_context\": \"Updated context\",\n  \"thumbnail\": null,\n  \"is_active\": true,\n  \"is_publicly_visible\": false,\n  \"instructions\": \"Updated instructions\",\n  \"pages\": []\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/project/{{organization_project_id}}?type=flows",
+              "host": ["{{base_url}}"],
+              "path": ["project", "{{organization_project_id}}"],
+              "query": [
+                {
+                  "key": "type",
+                  "value": "flows"
+                }
+              ]
+            },
+            "description": "Update a flows project. Can update title, description, avatar_id, voice_id, project_context, thumbnail, is_active, is_publicly_visible, instructions, and pages."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Share Link",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/project/{{organization_project_id}}/share",
+              "host": ["{{base_url}}"],
+              "path": ["project", "{{organization_project_id}}", "share"]
+            },
+            "description": "Get share link details for a project including all users with access"
+          },
+          "response": []
+        },
+        {
+          "name": "Share Project (Email)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.data && response.data.user_id) {",
+                  "        pm.collectionVariables.set('user_id', response.data.user_id);",
+                  "        console.log('User ID saved: ' + response.data.user_id);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"recipient@example.com\",\n  \"is_domain\": false,\n  \"ttl\": \"2025-01-15T00:00:00.000Z\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/project/{{organization_project_id}}/share",
+              "host": ["{{base_url}}"],
+              "path": ["project", "{{organization_project_id}}", "share"]
+            },
+            "description": "Share a project with a specific email address. User will be enriched via Apollo. Optional ttl sets expiration date."
+          },
+          "response": []
+        },
+        {
+          "name": "Share Project (Domain)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"example.com\",\n  \"is_domain\": true,\n  \"ttl\": \"2025-01-15T00:00:00.000Z\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/project/{{organization_project_id}}/share",
+              "host": ["{{base_url}}"],
+              "path": ["project", "{{organization_project_id}}", "share"]
+            },
+            "description": "Share a project with all users from a domain. Provide domain in email field (e.g., example.com becomes *@example.com). Optional ttl sets expiration date."
+          },
+          "response": []
+        },
+        {
+          "name": "Update Share Links (Batch)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{dashboard_access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"updates\": [\n    {\n      \"user_id\": \"{{user_id}}\",\n      \"is_active\": false,\n      \"ttl\": \"2025-01-15T00:00:00.000Z\"\n    }\n  ]\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/project/{{organization_project_id}}/share",
+              "host": ["{{base_url}}"],
+              "path": ["project", "{{organization_project_id}}", "share"]
+            },
+            "description": "Update share link settings for multiple users at once. Can update is_active (enable/disable) and ttl (expiration)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sessions",
+      "item": [
+        {
+          "name": "Create Session",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "if (pm.response.code === 201) {",
+                  "    const response = pm.response.json();",
+                  "    if (response.data && response.data.session_id) {",
+                  "        pm.collectionVariables.set('session_id', response.data.session_id);",
+                  "        console.log('Session ID saved: ' + response.data.session_id);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"duration\": 3600\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/sessions/create",
+              "host": ["{{base_url}}"],
+              "path": ["sessions", "create"]
+            },
+            "description": "Create a new session for the organization"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "LiveKit",
+      "item": [
+        {
+          "name": "Generate Token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"session_id\": \"{{session_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/livekit/token",
+              "host": ["{{base_url}}"],
+              "path": ["livekit", "token"]
+            },
+            "description": "Generate LiveKit token for a session and dispatch agent"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Enrich User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{user_email}}\",\n  \"session_id\": \"{{session_id}}\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users/enrich",
+              "host": ["{{base_url}}"],
+              "path": ["users", "enrich"]
+            },
+            "description": "Enrich user data via Apollo API and link to session"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Get Stats",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"current_period_start_date\": \"2024-01-01T00:00:00.000Z\",\n  \"current_period_end_date\": \"2024-01-31T23:59:59.999Z\",\n  \"previous_period_start_date\": \"2023-12-01T00:00:00.000Z\",\n  \"previous_period_end_date\": \"2023-12-31T23:59:59.999Z\",\n  \"region\": null\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboard/stats",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "stats"]
+            },
+            "description": "Get dashboard statistics with period comparison"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Sessions List",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"start_date\": \"2024-01-01T00:00:00.000Z\",\n  \"end_date\": \"2024-01-31T23:59:59.999Z\",\n  \"region\": null,\n  \"limit\": 10,\n  \"offset\": 0\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboard/sessions",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "sessions"]
+            },
+            "description": "Get paginated list of sessions with filters"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Visitor Data",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"current_period_start_date\": \"2024-01-01T00:00:00.000Z\",\n  \"current_period_end_date\": \"2024-01-31T23:59:59.999Z\",\n  \"previous_period_start_date\": \"2023-12-01T00:00:00.000Z\",\n  \"previous_period_end_date\": \"2023-12-31T23:59:59.999Z\",\n  \"country\": null,\n  \"source\": null,\n  \"company\": null,\n  \"limit\": 10,\n  \"offset\": 0\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/dashboard/visitors",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "visitors"]
+            },
+            "description": "Get visitor metrics and paginated visitor table"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Session Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{access_token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/dashboard/sessions/{{session_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["dashboard", "sessions", "{{session_id}}"]
+            },
+            "description": "Get detailed information about a specific session"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Webhooks",
+      "item": [
+        {
+          "name": "LiveKit Session Analytics",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"agent\": \"livekit-agent\",\n  \"data\": {\n    \"organization_id\": \"{{organization_id}}\",\n    \"session_id\": \"{{session_id}}\",\n    \"room_name\": \"test-room\",\n    \"interactions\": {\n      \"voice\": 5,\n      \"chat\": 10,\n      \"demo\": {\n        \"human\": 2,\n        \"agent\": 3\n      }\n    },\n    \"transcripts\": [\n      {\n        \"role\": \"user\",\n        \"content\": \"Hello, I have a question.\"\n      },\n      {\n        \"role\": \"assistant\",\n        \"content\": \"Hi! How can I help you today?\"\n      }\n    ],\n    \"user_inputs\": [\n      {\n        \"type\": \"expected_timeline\",\n        \"question\": \"When do you need this?\",\n        \"answer\": \"Next month\"\n      }\n    ],\n    \"audio_url\": \"https://example.com/recording.mp3\",\n    \"duration\": 300,\n    \"user_id\": \"user-123\",\n    \"user_email\": \"user@example.com\",\n    \"hubspotutk\": null,\n    \"is_meeting_booked\": false\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/webhooks/livekit/session",
+              "host": ["{{base_url}}"],
+              "path": ["webhooks", "livekit", "session"]
+            },
+            "description": "Receive LiveKit session analytics webhook"
+          },
+          "response": []
+        },
+        {
+          "name": "PostHog Analytics",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"project\": {\n    \"id\": 1,\n    \"name\": \"My Project\",\n    \"url\": \"https://app.posthog.com/project/1\"\n  },\n  \"event\": {\n    \"uuid\": \"event-uuid-123\",\n    \"event\": \"session_ended\",\n    \"distinct_id\": \"{{session_id}}\",\n    \"elements_chain\": \"\",\n    \"properties\": {\n      \"$ip\": \"192.168.1.1\",\n      \"$geoip_country_name\": \"United States\",\n      \"$geoip_city_name\": \"San Francisco\",\n      \"$geoip_subdivision_1_name\": \"California\",\n      \"$geoip_latitude\": 37.7749,\n      \"$geoip_longitude\": -122.4194,\n      \"utm_source\": \"google\",\n      \"utm_medium\": \"cpc\",\n      \"utm_campaign\": \"summer_sale\",\n      \"utm_term\": \"ai assistant\",\n      \"$current_url\": \"https://example.com/demo\",\n      \"gclid\": \"gclid-123\",\n      \"$browser\": \"Chrome\",\n      \"$device_type\": \"Desktop\"\n    },\n    \"timestamp\": \"2024-01-15T10:30:00.000Z\",\n    \"url\": \"https://app.posthog.com/events/event-uuid-123\"\n  },\n  \"person\": {\n    \"id\": \"person-123\",\n    \"properties\": {},\n    \"name\": \"Anonymous User\",\n    \"url\": \"https://app.posthog.com/person/person-123\"\n  },\n  \"groups\": {},\n  \"source\": {\n    \"name\": \"PostHog\",\n    \"url\": \"https://posthog.com\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/webhooks/posthog",
+              "host": ["{{base_url}}"],
+              "path": ["webhooks", "posthog"]
+            },
+            "description": "Receive PostHog analytics webhook"
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

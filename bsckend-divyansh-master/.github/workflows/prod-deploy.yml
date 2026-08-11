@@ -1,0 +1,153 @@
+name: Deployment-Prod-ECS-US
+
+on:
+  workflow_dispatch:
+
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: production/chicken-prod
+  ECS_SERVICE: chicken-prod
+  ECS_CLUSTER: prod
+  ECS_TASK_DEFINITION: .aws/prod-task-definition.json
+  CONTAINER_NAME: "chicken-prod"
+  TARGET_GROUP_ARN: "arn:aws:elasticloadbalancing:us-east-1:789501570539:targetgroup/tg-chicken-prod/6ed1fab00524d770"
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-push:
+    name: Build and Push Image
+    runs-on: ubuntu-latest
+    outputs:
+      image-tag: ${{ steps.set-image-tag-output.outputs.image-tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: github-actions
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Set Image tag
+        id: set-image-tag-output
+        run: |
+          echo "image-tag=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+
+  update-task-def:
+    name: Update Task Definition
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    outputs:
+      task-definition-path: ${{ steps.update-task-def.outputs.task-definition-path }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: github-actions
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Retrieve secrets from AWS Secrets Manager
+        id: retrieve-secrets
+        run: |
+          SECRETS=$(aws secretsmanager get-secret-value --secret-id ${{ secrets.PROD_SECRET_NAME }} --query 'SecretString' --output text)
+          echo "SECRETS=$SECRETS" >> $GITHUB_ENV
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install boto3
+
+      - name: Update ECS Task Definition
+        run: |
+          echo "$SECRETS" > secrets.json
+          ls -la
+          python update_task_def.py secrets.json ${{ env.ECS_TASK_DEFINITION }} new-task-definition.json
+
+      - name: Update Task Definition
+        id: update-task-def
+        env:
+          ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
+          ECR_REGISTRY: ${{ secrets.ECR_REGISTRY }}
+          IMAGE_TAG: ${{ needs.build-and-push.outputs.image-tag }}
+        run: |
+          set -e
+
+          IMAGE_URI="${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+
+          # Ensure IMAGE_URI is not empty
+          if [ -z "$IMAGE_URI" ]; then
+          echo "Error: IMAGE_URI is empty"
+          exit 1
+          fi
+
+          # Create a new task definition with the updated image
+          jq --arg IMAGE_URI "$IMAGE_URI" '.containerDefinitions[0].image = $IMAGE_URI' new-task-definition.json > final-task-definition.json
+          cat final-task-definition.json
+
+          echo "::set-output name=task-definition-path::${{ github.workspace }}/final-task-definition.json"
+
+      - name: Upload Task Definition Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: final-task-definition
+          path: final-task-definition.json
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: update-task-def
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: github-actions
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Download Task Definition Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: final-task-definition
+          path: ${{ github.workspace }}
+
+      - name: Deploy Amazon ECS Task Definition
+        id: deploy-task
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ github.workspace }}/final-task-definition.json
+          service: ${{ env.ECS_SERVICE }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
+
+      - name: Update ECS Service with Load Balancer
+        run: |
+          aws ecs update-service --cluster ${{ env.ECS_CLUSTER }} \
+          --service ${{ env.ECS_SERVICE }} \
+          --load-balancers "targetGroupArn=${{ env.TARGET_GROUP_ARN }},containerName=${{ env.CONTAINER_NAME }},containerPort=8000"

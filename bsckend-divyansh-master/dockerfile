@@ -1,0 +1,32 @@
+# Use the official Bun image from Docker Hub
+FROM oven/bun:1.2.3 as build
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy package.json and bun.lockb (if exists) to the working directory
+COPY package.json bun.lockb* ./
+
+# Install dependencies
+RUN bun install
+
+# Copy the rest of the application code to the working directory
+COPY . .
+
+RUN bun run compile
+
+FROM ubuntu:20.04
+
+WORKDIR /app
+
+# Install webp tools (includes cwebp)
+RUN apt update && apt install -y webp
+
+COPY --from=build /app/build/mutton /app/build/mutton
+
+RUN chmod +x /app/build/mutton
+
+# Expose the port the app runs on
+EXPOSE 8000
+
+CMD ["/app/build/mutton"]
