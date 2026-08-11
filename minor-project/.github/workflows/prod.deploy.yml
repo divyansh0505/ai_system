@@ -1,0 +1,65 @@
+name: Prod Build and Deploy
+on:
+  push:
+    branches:
+      - main
+
+env:
+  AWS_REGION: ap-south-1
+  WIDGET_BUCKET: widget.interactnow.ai
+  DEMO_BUCKET: bento.humanisys.ai
+  WIDGET_CLOUDFRONT_ID: E1CPIDXFKIAX1L
+  DEMO_CLOUDFRONT_ID: E2J1YN8VH6KGGR
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: github-actions
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          echo "$HOME/.bun/bin" >> $GITHUB_PATH
+
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Decode env file
+        env:
+          ENV_SECRET: ${{ secrets.ENV_SECRET }}
+        run: echo $ENV_SECRET | base64 -d > .env
+
+      - name: Build Widget
+        run: CI=false bun run build
+
+      - name: Upload widget bundle to WIDGET S3 bucket (exclude HTML files)
+        run: |
+          # Upload entire dist folder but exclude any .html files
+          aws s3 sync dist/ s3://widget.interactnow.ai/ --delete --exclude "*.html"
+
+      - name: Upload production demo HTML to DEMO S3 bucket
+        run: aws s3 cp example/prod.html s3://bento.humanisys.ai/index.html --content-type 'text/html'
+
+      - name: Set caching for WIDGET JS and assets
+        run: aws s3 cp s3://widget.interactnow.ai/ s3://widget.interactnow.ai/ --recursive --exclude '*' --include '*.js' --include '*.json' --include '*.css' --include '*.gif' --include '*.svg' --include '*.jpeg' --include '*.jpg' --include '*.png' --include '*.ttf' --include '*.ico' --include '*.webp' --include '*.mp3' --cache-control 'max-age=1814000'
+
+      - name: Set no-cache for index.html on DEMO
+        run: aws s3 cp s3://bento.humanisys.ai/index.html s3://bento.humanisys.ai/index.html --cache-control 'no-cache, no-store, must-revalidate' --content-type 'text/html'
+
+      - name: Invalidate Demo CloudFront Cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ env.DEMO_CLOUDFRONT_ID }} --paths '/*'
+
+      - name: Invalidate Widget CloudFront Cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ env.WIDGET_CLOUDFRONT_ID }} --paths '/*'

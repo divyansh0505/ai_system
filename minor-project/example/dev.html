@@ -1,0 +1,1630 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Interact AI - Automate Your AI Interactions in Weeks</title>
+  <meta name="description"
+    content="Get AI-powered assistance faster, cut manual work, and focus on growth. Automate 90% of tasks with 300+ integrations. Trusted by 2,000+ leading enterprises." />
+  <meta name="keywords"
+    content="AI automation, business intelligence, AI integration, intelligent automation, AI platform, enterprise AI" />
+  <meta name="author" content="Humanisys AI" />
+  <meta property="og:title" content="Interact AI - Automate Your AI Interactions in Weeks" />
+  <meta property="og:description"
+    content="Get AI-powered assistance faster with intelligent automation. Trusted by 2,000+ leading enterprises worldwide." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Interact AI - Automate Your AI Interactions in Weeks" />
+  <meta name="twitter:description"
+    content="Automate 90% of tasks with 300+ integrations. Trusted by leading enterprises." />
+
+  <!-- Meta Tags for Mobile -->
+  <meta name="theme-color" content="#000000" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --primary-light: #818cf8;
+      --bg: #ffffff;
+      --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --bg-secondary: #f8fafc;
+      --text: #1e293b;
+      --text-secondary: #64748b;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --accent: #f59e0b;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family:
+        "Inter",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family:
+        "Space Grotesk",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      width: 100%;
+    }
+
+    @media (max-width: 1400px) {
+      .container {
+        max-width: 1140px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1.5rem;
+      }
+    }
+
+    /* Navigation */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      z-index: 1000;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0 !important;
+      gap: 2rem;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: opacity 0.3s;
+    }
+
+    .logo:hover {
+      opacity: 0.8;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      display: inline-block;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .cta-button {
+      background: var(--primary);
+      color: white;
+      padding: 0.625rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      display: inline-block;
+      font-size: 0.95rem;
+    }
+
+    .cta-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(99, 102, 241, 0.3);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg,
+          #5b21b6 0%,
+          #7c3aed 50%,
+          #a855f7 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 120px 0 80px;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-container {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 5rem;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: -20%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle,
+          rgba(255, 255, 255, 0.08) 0%,
+          transparent 70%);
+      border-radius: 50%;
+      z-index: 0;
+    }
+
+    .hero-container {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 5rem;
+      width: 100%;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle,
+          rgba(255, 255, 255, 0.15) 0%,
+          transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: -20%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.75rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      line-height: 1.1;
+      color: #ffffff !important;
+      text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero .subtitle {
+      font-size: clamp(1.125rem, 2vw, 1.35rem);
+      color: #ffffff !important;
+      margin-bottom: 2.5rem;
+      line-height: 1.7;
+      font-weight: 400;
+      max-width: 600px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      filter: blur(80px);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.75rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      line-height: 1.15;
+    }
+
+    .hero .subtitle {
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    .hero-features {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .hero-feature {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.05rem;
+      color: #ffffff !important;
+      font-weight: 500;
+    }
+
+    .hero-feature span {
+      color: #ffffff !important;
+    }
+
+    .hero-feature svg {
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      padding: 0.35rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      stroke: #ffffff !important;
+    }
+
+    .hero-form {
+      background: white;
+      border-radius: 20px;
+      padding: 2.75rem 2.5rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-form h3 {
+      font-size: 1.75rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .hero-form>p {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.625rem;
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 1rem 1.125rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.3s;
+      font-family: inherit;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+    }
+
+    .form-checkbox {
+      display: flex;
+      align-items: start;
+      gap: 0.625rem;
+      margin-bottom: 1.75rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .form-checkbox input[type="checkbox"] {
+      margin-top: 0.25rem;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+    }
+
+    .form-checkbox label {
+      cursor: pointer;
+    }
+
+    .form-checkbox a {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .form-checkbox a:hover {
+      color: var(--primary-dark);
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 1.125rem 2rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      text-decoration: none;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.625rem;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.5);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 600px;
+      background: var(--main);
+      opacity: 0.15;
+      border-radius: 50%;
+      filter: blur(100px);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 4rem 0;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      line-height: 1.1;
+    }
+
+    .hero .subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      color: var(--text);
+      margin-bottom: 2.5rem;
+      max-width: 650px;
+      margin-left: auto;
+      margin-right: auto;
+      font-weight: 500;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      padding: 1.25rem 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+      border: var(--border);
+    }
+
+    .btn-primary {
+      background: var(--main);
+      color: var(--bg);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-primary:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .btn-primary:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--primary);
+    }
+
+    .btn-secondary {
+      background: var(--bg);
+      color: var(--primary);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-accent);
+      transform: translate(-2px, -2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .btn-secondary:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--primary);
+    }
+
+    /* Trust Section */
+    .trust-section {
+      padding: 4rem 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trust-section p {
+      text-align: center;
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 2.5rem;
+    }
+
+    .trust-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+      opacity: 0.5;
+    }
+
+    .trust-logos div {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    /* Features Section */
+    .features {
+      padding: 7rem 0;
+      background: var(--bg-secondary);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(2.25rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+    }
+
+    .section-header p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+      transform: translateY(-4px);
+    }
+
+    .feature-header {
+      display: flex;
+      align-items: start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--bg-secondary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .feature-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .feature-card .problem {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .feature-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 1.5rem 0;
+    }
+
+    .solution-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+      padding: 0.375rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .feature-card .solution {
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    /* Stats Section */
+    .stats-section {
+      padding: 6rem 0;
+      background: var(--bg);
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    .stat-card {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-description {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    /* Testimonials Section */
+    .testimonials {
+      padding: 7rem 0;
+      background: var(--bg-secondary);
+    }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .testimonial-card {
+      background: white;
+      padding: 2.5rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+      transform: translateY(-4px);
+    }
+
+    .testimonial-text {
+      margin-bottom: 2rem;
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.75;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-avatar {
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .author-info h4 {
+      color: var(--text);
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .author-info p {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    /* FAQ Section */
+    .faq-section {
+      padding: 7rem 0;
+      background: var(--bg);
+    }
+
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      width: 100%;
+      text-align: left;
+      padding: 1.5rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      background: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.3s;
+    }
+
+    .faq-question:hover {
+      background: var(--bg-secondary);
+    }
+
+    .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 0.95rem;
+      display: none;
+    }
+
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+
+    .faq-icon {
+      transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 6rem 0;
+      background: linear-gradient(135deg,
+          #5b21b6 0%,
+          #7c3aed 50%,
+          #a855f7 100%);
+      text-align: center;
+      color: #ffffff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle,
+          rgba(255, 255, 255, 0.1) 0%,
+          transparent 70%);
+      border-radius: 50%;
+    }
+
+    .cta-section::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle,
+          rgba(255, 255, 255, 0.15) 0%,
+          transparent 70%);
+      border-radius: 50%;
+    }
+
+    .cta-section h2 {
+      font-size: clamp(2.25rem, 4vw, 2.75rem);
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+      position: relative;
+      z-index: 1;
+      color: #ffffff !important;
+    }
+
+    .cta-section p {
+      font-size: 1.125rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      z-index: 1;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      color: #ffffff !important;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--primary);
+      padding: 1.125rem 2.25rem;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-white:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+      background: #fafafa;
+    }
+
+    .btn-white:active {
+      transform: translateY(-1px);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--text);
+      color: white;
+      padding: 3rem 0 1.5rem;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 0.9rem;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.9rem;
+    }
+
+    /* Mobile Responsive */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .mobile-menu-toggle span {
+      display: block;
+      width: 25px;
+      height: 2px;
+      background: var(--text);
+      margin: 5px 0;
+      transition: all 0.3s;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .hero {
+        padding: 100px 0 60px;
+      }
+
+      .hero-content {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.25rem, 5vw, 3rem);
+      }
+
+      .hero .subtitle {
+        margin: 0 auto 2rem;
+      }
+
+      .hero-features {
+        align-items: center;
+      }
+
+      .hero-form {
+        max-width: 550px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 280px;
+        height: calc(100vh - 70px);
+        background: white;
+        flex-direction: column;
+        padding: 2rem;
+        border-left: 1px solid var(--border);
+        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+        transition: right 0.3s ease;
+        align-items: flex-start;
+      }
+
+      .nav-links.active {
+        right: 0;
+      }
+
+      .mobile-menu-toggle {
+        display: block;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 80px 0 60px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 8vw, 2.5rem);
+      }
+
+      .hero .subtitle {
+        font-size: 1rem;
+      }
+
+      .hero-feature {
+        font-size: 0.95rem;
+      }
+
+      .features-grid,
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .trust-logos {
+        gap: 2rem;
+      }
+
+      .trust-logos div {
+        font-size: 1.25rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-white {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
+      }
+
+      .section-header h2 {
+        font-size: clamp(1.75rem, 6vw, 2.25rem);
+      }
+
+      .section-header p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <nav class="container">
+      <a href="#" class="logo">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="2" />
+          <circle cx="16" cy="16" r="6" fill="currentColor" />
+          <circle cx="8" cy="12" r="2" fill="currentColor" />
+          <circle cx="24" cy="12" r="2" fill="currentColor" />
+          <circle cx="8" cy="20" r="2" fill="currentColor" />
+          <circle cx="24" cy="20" r="2" fill="currentColor" />
+        </svg>
+        Interact AI
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#" class="cta-button">Get Started</a></li>
+      </ul>
+      <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <h1>Automate Your AI Interactions with Intelligent Automation</h1>
+          <p class="subtitle">
+            Get AI-powered assistance faster, cut manual work, and focus on
+            growth. Whether you're a startup or an enterprise, we scale with
+            you and get you ready in weeks, not months.
+          </p>
+          <div class="hero-features">
+            <div class="hero-feature">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span>Automate 90% of repetitive tasks</span>
+            </div>
+            <div class="hero-feature">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span>300+ integrations with existing tools</span>
+            </div>
+            <div class="hero-feature">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span>Support for both voice and text interactions</span>
+            </div>
+            <div class="hero-feature">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span>100% integration readiness in 3 sessions</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-form">
+          <h3>Get Started</h3>
+          <p>Book your personal demo and see how we can help</p>
+          <form>
+            <div class="form-group">
+              <label for="fullname">Full Name*</label>
+              <input type="text" id="fullname" name="fullname" required placeholder="John Doe" />
+            </div>
+            <div class="form-group">
+              <label for="email">Work Email*</label>
+              <input type="email" id="email" name="email" required placeholder="john@company.com" />
+            </div>
+            <div class="form-checkbox">
+              <input type="checkbox" id="privacy" name="privacy" required />
+              <label for="privacy">By submitting, I agree to Interact AI's
+                <a href="#">Privacy Policy</a>.</label>
+            </div>
+            <button type="submit" class="btn-primary">
+              Book Your Personal Demo
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" />
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <div id="interactnow-inline-widget"></div>
+
+    <section class="trust-section">
+      <div class="container">
+        <p>Trusted by 2,000+ Leading Enterprises</p>
+        <div class="trust-logos">
+          <div style="
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--text-secondary);
+              ">
+            COMPANY
+          </div>
+          <div style="
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--text-secondary);
+              ">
+            BRAND
+          </div>
+          <div style="
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--text-secondary);
+              ">
+            STARTUP
+          </div>
+          <div style="
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--text-secondary);
+              ">
+            BUSINESS
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Why Teams Choose Interact AI</h2>
+          <p>
+            See how companies across the globe have simplified their AI
+            journey with our platform
+          </p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-header">
+              <div class="feature-icon">⚠️</div>
+              <div>
+                <h3>Complex Implementation</h3>
+                <p class="problem">
+                  AI integration involves 100+ configuration steps to track
+                  and manage.
+                </p>
+              </div>
+            </div>
+            <div class="feature-divider"></div>
+            <div class="solution-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              Our Solution
+            </div>
+            <p class="solution">
+              Interact AI maps configurations automatically and monitors them
+              in real-time with intelligent automation.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-header">
+              <div class="feature-icon">📋</div>
+              <div>
+                <h3>Manual Data Collection</h3>
+                <p class="problem">
+                  Chasing customer data and insights takes weeks of manual
+                  effort.
+                </p>
+              </div>
+            </div>
+            <div class="feature-divider"></div>
+            <div class="solution-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              Our Solution
+            </div>
+            <p class="solution">
+              Interact AI collects insights across systems instantly—always
+              ready for analysis and action.
+            </p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-header">
+              <div class="feature-icon">📧</div>
+              <div>
+                <h3>Communication Overhead</h3>
+                <p class="problem">
+                  Endless emails and slow response times create bottlenecks.
+                </p>
+              </div>
+            </div>
+            <div class="feature-divider"></div>
+            <div class="solution-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              Our Solution
+            </div>
+            <p class="solution">
+              Interact AI's unified interface gives teams direct, controlled
+              access—no email chaos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stats-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Results That Speak For Themselves</h2>
+          <p>See the measurable impact our platform delivers to businesses</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">60%</div>
+            <div class="stat-label">Faster Implementation</div>
+            <p class="stat-description">
+              Average time savings for our clients
+            </p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">65%</div>
+            <div class="stat-label">Cost Reduction</div>
+            <p class="stat-description">
+              Average savings compared to traditional methods
+            </p>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Success Rate</div>
+            <p class="stat-description">
+              All our clients successfully achieve their goals
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials" id="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <h2>Trusted by Leading Global Organizations</h2>
+          <p>
+            See how companies have transformed their operations with Interact
+            AI
+          </p>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "Interact AI enabled us to achieve full integration in under 30
+              days. This rapid deployment not only reassured our customers
+              about our capabilities but also allowed us to focus on
+              delivering high-quality solutions."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">MA</div>
+              <div class="author-info">
+                <h4>Miroslaw Andziak</h4>
+                <p>CEO, InfiniteDATA</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "Interact AI was everything we hoped for. It could've been chaos
+              managing multiple integrations simultaneously. Interact AI
+              turned it into a controlled, streamlined process. The platform
+              knew what needed to be done, by when, and by whom."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">GP</div>
+              <div class="author-info">
+                <h4>Georgi Petrov</h4>
+                <p>Co-founder & CEO, NitroPack</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <p class="testimonial-text">
+              "Continuous monitoring helps from day one. It connects all the
+              pieces and helps delegate tasks to specific roles without losing
+              track or control. When it comes to applying automation
+              principles, this is a gamechanger."
+            </p>
+            <div class="testimonial-author">
+              <div class="author-avatar">AP</div>
+              <div class="author-info">
+                <h4>Alessio Panni</h4>
+                <p>Partner Head of Cloud, Prometeia</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <h2>Frequently Asked Questions</h2>
+          <p>Get answers to the most common questions about our platform</p>
+        </div>
+        <div class="faq-container">
+          <div class="faq-item">
+            <button class="faq-question">
+              How fast can we get started with Interact AI?
+              <span class="faq-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd" />
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              Most teams are up and running within 2-4 weeks. Our guided
+              onboarding process and dedicated support team ensure a smooth
+              transition.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              How much time is required from engineering?
+              <span class="faq-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd" />
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              Minimal engineering resources are needed. Our platform handles
+              most of the heavy lifting through automation, typically
+              requiring only 10-15 hours of engineering time for initial
+              setup.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              Do we need external consultants?
+              <span class="faq-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd" />
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              No external consultants needed. Our platform includes built-in
+              guidance and our customer success team provides expert support
+              throughout your journey.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              Can Interact AI help maintain our system after deployment?
+              <span class="faq-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd" />
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              Absolutely! Continuous monitoring is a core feature. We
+              automatically track changes, alert you to issues, and help you
+              maintain optimal performance over time.
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">
+              Can we add more features later without rework?
+              <span class="faq-icon">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd" />
+                </svg>
+              </span>
+            </button>
+            <div class="faq-answer">
+              Yes! Our modular architecture allows you to add new capabilities
+              as needed. Customers report 40% less effort when expanding to
+              additional features.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="container">
+        <h2>Ready to Transform Your Business?</h2>
+        <p>
+          Join thousands of companies who have discovered the power of
+          intelligent automation
+        </p>
+        <div class="cta-buttons">
+          <a href="#home" class="btn-white">
+            Join our Success Stories
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+              <path
+                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-links">
+        <a href="#">About us</a>
+        <a href="#">Trust</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+        <a href="#">Documentation</a>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 <strong>Humanisys AI</strong>. All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    if (mobileMenuToggle) {
+      mobileMenuToggle.addEventListener("click", function () {
+        navLinks.classList.toggle("active");
+      });
+    }
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+        // Close mobile menu if open
+        navLinks.classList.remove("active");
+      });
+    });
+
+    // FAQ accordion
+    document.querySelectorAll(".faq-question").forEach((button) => {
+      button.addEventListener("click", function () {
+        const faqItem = this.parentElement;
+        const isActive = faqItem.classList.contains("active");
+
+        // Close all FAQ items
+        document.querySelectorAll(".faq-item").forEach((item) => {
+          item.classList.remove("active");
+        });
+
+        // Open clicked item if it wasn't active
+        if (!isActive) {
+          faqItem.classList.add("active");
+        }
+      });
+    });
+
+    // Form submission
+    document
+      .querySelector(".hero-form form")
+      .addEventListener("submit", function (e) {
+        e.preventDefault();
+        alert("Thank you! We will contact you soon.");
+      });
+
+    // Chat widget configuration
+    window.CHAT_WIDGET_CONFIG = {
+      apiKey: "demo-key",
+      domain: "hubilo.com",
+      startFullscreen: true,
+      theme: {
+        primary: "#6366f1",
+      },
+    };
+  </script>
+  <script type="module" src="https://dev.interactnow.ai/main.js?launcher=bottom"></script>
+</body>
+
+</html>

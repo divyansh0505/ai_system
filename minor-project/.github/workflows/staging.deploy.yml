@@ -1,0 +1,54 @@
+name: Staging Build and Deploy
+on:
+  workflow_dispatch:
+
+env:
+  AWS_REGION: ap-south-1
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: github-actions
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Install Bun
+        run: |
+          curl -fsSL https://bun.sh/install | bash
+          echo "$HOME/.bun/bin" >> $GITHUB_PATH
+
+      - name: Install Dependencies
+        run: bun install
+
+      - name: Decode env file
+        env:
+          ENV_SECRET: ${{ secrets.STAGE_ENV_SECRET }}
+        run: echo $ENV_SECRET  | base64 -d  > .env
+
+      - name: Build Widget
+        run: CI=false bun run build
+
+      - name: Copy dev.html to dist folder as index.html
+        run: cp example/stage.html dist/index.html
+
+      - name: Sync build folder to S3 bucket
+        run: aws s3 sync dist/ s3://staging.bento.humanisys.ai --delete
+
+      - name: Enable 21 days caching of JS and CSS
+        run: aws s3 cp s3://staging.bento.humanisys.ai/ s3://staging.bento.humanisys.ai/ --recursive --exclude '*' --include '*.js' --include '*.json' --include '*.css' --cache-control 'max-age=1814000'
+
+      - name: Enable 21 days caching of Media Files
+        run: aws s3 cp s3://staging.bento.humanisys.ai/ s3://staging.bento.humanisys.ai/ --recursive --exclude '*' --include '*.gif' --include '*.svg' --include '*.jpeg' --include '*.jpg' --include '*.png' --include '*.ttf' --include '*.ico' --include '*.webp' --include '*.mp3' --cache-control 'max-age=1814000'
+
+      - name: Invalidate Cloudfront Cache
+        run: aws cloudfront create-invalidation --distribution-id E3JKV7H4KL5HMS --paths '/*'

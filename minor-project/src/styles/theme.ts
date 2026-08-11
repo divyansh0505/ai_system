@@ -1,0 +1,20 @@
+export const theme = {
+  colors: {
+    primary: "#2B5CE3",
+    text: "#111827",
+    caption: "#898989",
+    disabled: "#7F7F7F",
+    placeholder: "#A0A0A0",
+    background: "#ffffff",
+    surface: "#EFEFEF",
+    destructive: "#ef4444",
+    destructiveForeground: "#f8fafc",
+    secondary: "#f1f5f9",
+    secondaryForeground: "#0f172a",
+    muted: "#f1f5f9",
+    mutedForeground: "#64748b",
+    accent: "#f1f5f9",
+    accentForeground: "#0f172a",
+    ring: "#94a3b8",
+  },
+};
